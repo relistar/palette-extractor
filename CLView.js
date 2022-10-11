@@ -1,15 +1,15 @@
 import chalk from 'chalk'
 
 export class CLView {
-    #SEPARATOR = '-'
-    #OUTPUT_BOX_WIDTH = 50
+    static SEPARATOR = '-'
+    static OUTPUT_BOX_WIDTH = 50
 
-    drawHeader = (text, width = this.#OUTPUT_BOX_WIDTH) => {
+    drawHeader = (text, width = CLView.OUTPUT_BOX_WIDTH) => {
         const leftPaddingLength = (width - text.length) / 2
         const rightPaddingLength = width - text.length - leftPaddingLength
 
-        const leftPadding = this.#SEPARATOR.repeat(leftPaddingLength)
-        const rightPadding = this.#SEPARATOR.repeat(rightPaddingLength)
+        const leftPadding = CLView.SEPARATOR.repeat(leftPaddingLength)
+        const rightPadding = CLView.SEPARATOR.repeat(rightPaddingLength)
 
         const output = `${leftPadding}${text.toUpperCase()}${rightPadding}`
 
@@ -26,15 +26,20 @@ export class CLView {
         console.log(text)
     }
 
-    drawSeparator = (length = this.#OUTPUT_BOX_WIDTH) => {
-        console.log(this.#SEPARATOR.repeat(length))
+    drawSeparator = (length = CLView.OUTPUT_BOX_WIDTH) => {
+        console.log(CLView.SEPARATOR.repeat(length))
     }
 
-    drawPixels = (pixels) => {
-        pixels.forEach(({r, g, b, a}) => {
-            const color = chalk.rgb(r, g, b).bold('\u25A0')
-            const output = `${color} and ALPHA: ${a}`
-            console.log(output)
+    drawPixelGrid = (grid) => {
+        grid.forEach(row => {
+            let rowOutput = ''
+            row.forEach(({red, green, blue, alpha}) => {
+                if(alpha) {
+                    const color = chalk.rgb(red, green, blue).bold('\u25A0')
+                    rowOutput += color
+                }
+            })
+            console.log(rowOutput)
         })
     }
 

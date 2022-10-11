@@ -1,36 +1,41 @@
 export class CLController {
-    #extractor
-    #view
+    _extractor
+    _view
 
     constructor(extractor, view) {
-        this.#extractor = extractor
-        this.#view = view
+        this._extractor = extractor
+        this._view = view
     }
 
     start(image) {
-        this.#extractor.image = image
-        this.#extractor.createPalette()
+        this._extractor.image = image
+        this._extractor.createPalette()
+        this.#drawState()
+    }
 
-        const pixels = this.#extractor.pixels
-        const nonTransparentPixels = this.#extractor.nonTransparentPixels
-        const hasTransparentPixels = this.#extractor.hasTransparentPixels
-        const palette = this.#extractor.palette
+    #drawState = () => {
+        const image = this._extractor.image
+        const pixels = image.pixels
+        const pixelGrid = image.pixelGrid
+        const nonTransparentPixels = this._extractor.nonTransparentPixels
+        const hasTransparentPixels = this._extractor.hasTransparentPixels
 
-        this.#view.drawHeader('image info')
-        this.#view.drawImageInfo(image)
-        this.#view.drawText(`Does the image have transparent background? - ${hasTransparentPixels ? 'Yes' : 'Not'}`)
-        this.#view.drawSeparator()
+        this._view.drawHeader('image info')
+        this._view.drawImageInfo(image)
+        this._view.drawText(`Does the image have transparent background? - ${hasTransparentPixels ? 'Yes' : 'Not'}`)
+        this._view.drawSeparator()
 
-        this.#view.drawHeader('pixels')
-        this.#view.drawPixels(pixels)
-        this.#view.drawSeparator()
+        this._view.drawHeader('pixels info')
+        this._view.drawText('Pixels amount: '  + pixels.length)
+        this._view.drawText('Non transparent pixels amount: '  + nonTransparentPixels.length)
+        this._view.drawSeparator()
 
-        this.#view.drawHeader('non transparent pixels')
-        this.#view.drawPixels(nonTransparentPixels)
-        this.#view.drawSeparator()
+        this._view.drawHeader('pixel grid')
 
-        this.#view.drawHeader('palette')
-        this.#view.drawPalette(palette)
+        console.log(pixelGrid[0].length)
+        console.log(pixelGrid.length)
+        this._view.drawPixelGrid(pixelGrid)
+
     }
 }
 
