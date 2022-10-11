@@ -1,0 +1,13 @@
+{
+  "name": "palette-extractor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.1.0",
+    "eslint": "^8.25.0",
+    "eslint-config": "^0.3.0",
+    "image-pixels": "^2.2.2"
+  }
+}
